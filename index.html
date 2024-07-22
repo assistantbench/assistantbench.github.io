@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="AssistantBench: Can Web Agents Solve Realistic and Time-Consuming Tasks?">
+  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AssistantBench</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon_web.svg">
+
+  <style>
+    body {
+      font-family: 'Noto Sans', sans-serif;
+      line-height: 1.6;
+    }
+    .section {
+      padding: 1rem 1.5rem; /* Slightly increase gap between sections */
+      margin-bottom: 1rem; /* Slightly increase gap between sections */
+      background: transparent;
+      border: none;
+    }
+    .hero {
+      background: transparent;
+      color: #333;
+      padding: 0.5rem 1.5rem; /* Reduce padding for the hero section */
+      border: none;
+      margin-top: -1.5rem; /* Add this line to reduce the top margin */
+    }
+    .hero .title {
+      font-family: 'Google Sans', sans-serif;
+      margin-bottom: 1rem;
+      font-size: 2.5rem;
+    }
+    .hero .publication-authors .author-block a {
+      text-decoration: none;
+      color: #3273dc;
+      font-weight: 500;
+    }
+    .hero .publication-authors .author-block a:hover {
+      text-decoration: underline;
+    }
+    .is-max-desktop {
+      max-width: 960px;
+    }
+    .publication-links .button {
+      margin-bottom: 0.0rem;
+      margin: 0.5rem;
+      font-size: 1.1rem;
+      padding: 0.75rem 1.5rem;
+    }
+    .content p {
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+    .figure {
+      margin: 1rem 0;
+    }
+    .caption {
+      font-style: italic;
+      color: #555;
+      text-align: center;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+    .footer {
+      background: transparent;
+      padding: 1rem 1.5rem; /* Reduce padding */
+      border: none;
+    }
+    .footer .content {
+      max-width: 960px;
+      margin: auto;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #777;
+    }
+    .publication-title {
+      font-weight: 700;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .publication-authors span {
+      display: inline-block;
+      margin: 0.2rem 0;
+      font-size: 1rem;
+    }
+    .publication-authors span sup {
+      font-size: 0.85rem;
+      vertical-align: super;
+    }
+    .white-bar {
+      background: transparent;
+      padding: 0.25rem 0; /* Further reduce padding */
+      border: none;
+    }
+    .hero .container, .section .container, .footer .container {
+      margin-bottom: 0; /* Remove bottom margin from containers */
+    }
+    .publication-links {
+      margin-bottom: 0.5rem; /* Further reduce margin below the buttons */
+    }
+    .hero, .white-bar {
+      padding-bottom: 0; /* Remove bottom padding from hero and white-bar */
+    }
+    .button {
+      background-color: #ffffff !important; /* Light gray background */
+      color: black !important; /* Black text */
+      border: 1px solid #c2e0f0 !important; /* Light gray border */
+    }
+    .button:hover {
+      background-color: #c2e0f0 !important; /* Slightly darker light gray on hover */
+      color: black !important; /* Ensure text remains black on hover */
+    }
+    .left-align {
+      text-align: left !important;
+    }
+    .section.about-assistantbench {
+  margin-top: -1rem; /* Move the section up */
+}
+  </style>
+
+  <script>
+    function toggleCitation() {
+      var citationContent = document.getElementById('citation-content');
+      if (citationContent.style.display === 'none') {
+        citationContent.style.display = 'block';
+      } else {
+        citationContent.style.display = 'none';
+      }
+    }
+  </script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+</nav>
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title publication-title">AssistantBench: Can Web Agents Solve Realistic and Time-Consuming Tasks?</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><a href="https://oriyoran.com">Ori Yoran</a><sup>1</sup>,</span>
+              <span class="author-block"><a href="https://samsam3232.github.io/">Samuel Amouyal</a><sup>1</sup>,</span>
+              <span class="author-block"><a href="https://chaitanyamalaviya.github.io/">Chaitanya Malaviya</a><sup>2</sup>,</span>
+              <span class="author-block"><a href="https://benbogin.github.io/">Ben Bogin</a><sup>3</sup>,</span>
+              <span class="author-block"><a href="https://ofir.io/">Ofir Press</a><sup>4</sup>,</span>
+              <span class="author-block"><a href="https://www.cs.tau.ac.il/~joberant/">Jonathan Berant</a><sup>1</sup></span>
+            </div>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>1</sup>Tel Aviv University </span>
+              <span class="author-block"><sup>2</sup>University of Pennsylvania </span>
+              <span class="author-block"><sup>3</sup>Allen Institute for AI </span>
+              <span class="author-block"><sup>3</sup>University of Washington</span>
+              <span class="author-block"><sup>4</sup>Princeton University</span>
+            </div>
+            <div class="column has-text-centered publication-links">
+              <span class="link-block">
+                <a href="https://github.com/oriyor/assistantbench/blob/main/resources/assistantbench.pdf" class="external-link button is-normal is-rounded">
+                  <span class="icon" style="height: 1.5em;">
+                    <img src="./static/images/arxiv_icon.png" alt="arxiv icon" style="height: 1.5em;">
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/AssistantBench/AssistantBench" class="external-link button is-normal is-rounded">
+                  <span class="icon" style="height: 1.5em;">
+                    <img src="./static/images/hf-logo.png" alt="Hugging Face Logo" style="height: 1.5em;">
+                  </span>
+                  <span>Data</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://huggingface.co/spaces/AssistantBench/leaderboard" class="external-link button is-normal is-rounded">
+                  <span class="icon" style="height: 1.5em;">
+                    <img src="./static/images/trophy_icon.png" alt="Medal icon" style="height: 1.5em;">
+                  </span>
+                  <span>Leaderboard</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://github.com/oriyor/assistantbench" class="external-link button is-normal is-rounded">
+                  <span class="icon" style="height: 1.5em;">
+                    <img src="./static/images/github_new.png" alt="github icon" style="height: 1.5em;">
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<div class="white-bar"></div>
+
+<section class="section about-assistantbench">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="content has-text-justified">
+          <h3 style="text-align: center;">About AssistantBench</h3>
+          <p style="text-align: left;">AssistantBench evaluates the ability of web agents to automatically solve realistic and time-consuming tasks. The benchmark includes 214 tasks covering multiple domains from more than 525 pages from 258 different websites. Please check out our <a href="https://arxiv.org/pdf/?" target="_blank">paper</a> for more details.</p>
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <figure style="width: 80%; margin: auto;">
+          <img src="static/images/assistantbench.gif" alt="Tasks in AssistantBench require navigating the web to find information from multiple websites">
+          <figcaption class="caption">Tasks in AssistantBench require navigating the web to find relevant information</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="content has-text-justified">
+          <h3 style="text-align: center;">SeePlanAct (SPA) </h3>
+          <p style="text-align: left;">As tasks in AssistantBench require planning the execution and transferring information between steps, we introduce a new web agent built to tackle tasks in AssistantBench by equipping <a href="https://osu-nlp-group.github.io/SeeAct/" target="_blank">SeeAct</a> with specialized planning and memory components.</p>
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <figure style="width: 50%; margin: auto;">
+          <img src="static/images/spa_animation.gif" alt="Tasks in AssistantBench require navigating the web to find information from multiple websites">
+          <figcaption class="caption">We equip SeeAct with specialized planning and memory components (green)</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="content has-text-justified">
+          <h3 style="text-align: center;">Performance on AssistantBench</h3>
+          <p style="text-align: left;">Even though SPA outperforms previous agents, AssistantBench is challenging for current benchmarks, with the best performance currently at 25.2%.</p>
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Accuracy</th>
+              <th>Answer rate</th>
+              <th>Precision</th>
+              <th>Exact match</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="left-align">SPA (ours) → Closed-book </td>
+              <td><b>25.2</b></td>
+              <td>91.3</td>
+              <td>7.5</td>
+              <td><b>9.9</b></td>
+            </tr>
+            <tr>
+              <td class="left-align">SeeAct → Closed-book</td>
+              <td>23.3</td>
+              <td>89.1</td>
+              <td>26.3</td>
+              <td>9.4</td>
+            </tr>
+            <tr>
+              <td class="left-align">Closed-book LM (1-shot)</td>
+              <td>22.2</td>
+              <td>89.1</td>
+              <td>25.0</td>
+              <td>8.2</td>
+            </tr>
+            <tr>
+              <td class="left-align">Retrieval-augmented LM (1-shot) → CB</td>
+              <td>19.4</td>
+              <td>92.5</td>
+              <td>21.2</td>
+              <td>6.1</td>
+            </tr>
+            <tr>
+              <td class="left-align">Retrieval-augmented LM (0-shot) → CB</td>
+              <td>18.7</td>
+              <td><b>93.6</b></td>
+              <td>20.0</td>
+              <td>6.7</td>
+            </tr>
+            <tr>
+              <td class="left-align">Closed-book LM (0-shot)</td>
+              <td>16.3</td>
+              <td>53.3</td>
+              <td><b>30.5</b></td>
+              <td>6.0</td>
+            </tr>
+            <tr>
+              <td class="left-align">Retrieval-augmented LM (0-shot)</td>
+              <td>11.7</td>
+              <td>59.8</td>
+              <td>19.8</td>
+              <td>5.5</td>
+            </tr>
+            <tr>
+              <td class="left-align">SPA (ours)</td>
+              <td>11.0</td>
+              <td>38.8</td>
+              <td>29.0</td>
+              <td>5.5</td>
+            </tr>
+            <tr>
+              <td class="left-align">Retrieval-augmented LM (1-shot)</td>
+              <td>10.6</td>
+              <td>48.3</td>
+              <td>22.3</td>
+              <td>3.8</td>
+            </tr>
+            <tr>
+              <td class="left-align">SeeAct</td>
+              <td>4.2</td>
+              <td>20.0</td>
+              <td>19.6</td>
+              <td>2.3</td>
+            </tr>
+          </tbody>
+        </table>
+        <figcaption class="caption">Performance on the AssistantBench test set with GPT4-T</figcaption>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="content has-text-justified">
+          <h3 style="text-align: center;">How was AssistantBench collected?</h3>
+          <p style="text-align: left;">To create AssistantBench, we first collected a seed set by asking participants in a study to share time-consuming web tasks they recently had. We expanded the seed set by showing tasks from as templates for crowd-workers. Finally, domain-experts shared domain-specific tasks to increase diversity.</p>
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <figure style="width: 80%; margin: auto;">
+          <img src="static/images/ab.png" alt="Tasks in AssistantBench require navigating the web to find information from multiple websites">
+          <figcaption class="caption">AssistantBench includes general and domain-specific realistic tasks</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="content has-text-justified">
+          <h3 style="text-align: center;">Getting started</h3>
+          <p style="text-align: left;">To get started with AssistantBench, simply download our <a href="https://huggingface.co/datasets/AssistantBench/AssistantBench" target="_blank">HuggingFace dataset</a>. We provide a development set with task answers, URLs, and explanations. We keep the test set answers hidden for now and provide the option to submit predictions via our <a href="https://huggingface.co/spaces/AssistantBench/leaderboard" target="_blank">HuggingFace portal</a>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <p><b>BibTeX</b></p>
+    <pre><code>@article{yoran-etal-2024-assistantbench,
+    title={AssistantBench: Can Web Agents Solve Realistic and Time-Consuming Tasks?},
+    author={Ori Yoran and Samuel Amouyal and Chaitanya Malaviya and Ben Bogin and Ofir Press and Jonathan Berant},
+    year={2024},
+    eprint={?},
+    archivePrefix={arXiv},
+    primaryClass={cs.CL}
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>This website is based on the template from <a rel="license" href="https://ds1000-code-gen.github.io/">DS-1000</a> and is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>. For any questions, please reach out via <a href="mailto:ori.yoran@ca.tau.ac.il">email</a>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+</body>
+</html>
